@@ -53,7 +53,7 @@
   <div class="clock">
    <div class="company">ECO TRANSPORT AS</div>
 <div id="time">00:00:00</div>
-<div class="city">ISLAMABAD</div>
+<div class="city">OSLO</div>
 <div id="date"></div>
 
   <script>
@@ -62,7 +62,7 @@
 
       document.getElementById("time").textContent =
         new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Asia/Islamabad",
+          timeZone: "Europe/Oslo",
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
@@ -71,7 +71,7 @@
 
       document.getElementById("date").textContent =
         new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Asia/Islamabad",
+          timeZone: "Europe/Oslo",
           weekday: "long",
           day: "2-digit",
           month: "long",
