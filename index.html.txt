@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECO Transport Clock</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+      color: #183153;
+    }
+
+    .clock {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .company {
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    #time {
+      font-size: clamp(42px, 9vw, 76px);
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #date {
+      font-size: 18px;
+      margin-top: 12px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="company">ECO TRANSPORT AS</div>
+    <div id="time">00:00:00</div>
+    <div id="date"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      document.getElementById("time").textContent =
+        new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Oslo",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false
+        }).format(now);
+
+      document.getElementById("date").textContent =
+        new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Oslo",
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        }).format(now);
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
