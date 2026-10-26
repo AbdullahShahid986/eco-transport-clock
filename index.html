@@ -4,80 +4,182 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ECO Transport Clock</title>
+  <title>Islamabad Analog Clock</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: White;
+      background: #101827;
+      color: white;
       font-family: Arial, sans-serif;
-      
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 28px;
+    }
+
+    #digital {
+      font-size: 22px;
+      margin-bottom: 28px;
+      color: #38bdf8;
+      font-variant-numeric: tabular-nums;
     }
 
     .clock {
-      text-align: center;
-      padding: 20px;
-      color: #00BFFF;
+      width: min(82vw, 360px);
+      aspect-ratio: 1;
+      position: relative;
+      border: 8px solid #38bdf8;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 35px #38bdf833;
     }
 
-    .company {
-      font-size: 14px;
-      letter-spacing: 2px;
-      color: #64748b;
-      margin-bottom: 12px;
+    .number {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      color: #172033;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 12px;
     }
 
-    #time {
-      font-size: clamp(42px, 9vw, 76px);
-      font-weight: bold;
-      font-variant-numeric: tabular-nums;
+    .number span {
+      position: absolute;
+      top: 12px;
     }
-   .city {
+
+    .n1  { transform: rotate(30deg); }
+    .n2  { transform: rotate(60deg); }
+    .n3  { transform: rotate(90deg); }
+    .n4  { transform: rotate(120deg); }
+    .n5  { transform: rotate(150deg); }
+    .n6  { transform: rotate(180deg); }
+    .n7  { transform: rotate(210deg); }
+    .n8  { transform: rotate(240deg); }
+    .n9  { transform: rotate(270deg); }
+    .n10 { transform: rotate(300deg); }
+    .n11 { transform: rotate(330deg); }
+
+    .number span {
+      transform: rotate(0deg);
+    }
+
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: 50% 100%;
+      border-radius: 10px;
+      transform: translateX(-50%) rotate(0deg);
+    }
+
+    .hour {
+      width: 7px;
+      height: 25%;
+      background: #172033;
+    }
+
+    .minute {
+      width: 5px;
+      height: 35%;
+      background: #334155;
+    }
+
+    .second {
+      width: 2px;
+      height: 40%;
+      background: #ef4444;
+    }
+
+    .center {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #ef4444;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+    }
+
+    footer {
+      margin-top: 24px;
+      color: #cbd5e1;
       font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 3px;
-      margin-top: 8px;
-      color: #64748b;
-    }
-   
-    #date {
-      font-size: 18px;
-      margin-top: 12px;
-      color: #64748b;
     }
   </style>
 </head>
+
 <body>
+  <h1>Islamabad, Pakistan</h1>
+  <div id="digital">Loading time...</div>
+
   <div class="clock">
-   <div class="company">ECO TRANSPORT </div>
-<div id="time">00:00:00</div>
-<div class="city">OSLO</div>
-<div id="date"></div>
+    <div class="number"><span>12</span></div>
+    <div class="number n1"><span>1</span></div>
+    <div class="number n2"><span>2</span></div>
+    <div class="number n3"><span>3</span></div>
+    <div class="number n4"><span>4</span></div>
+    <div class="number n5"><span>5</span></div>
+    <div class="number n6"><span>6</span></div>
+    <div class="number n7"><span>7</span></div>
+    <div class="number n8"><span>8</span></div>
+    <div class="number n9"><span>9</span></div>
+    <div class="number n10"><span>10</span></div>
+    <div class="number n11"><span>11</span></div>
+
+    <div class="hand hour" id="hour"></div>
+    <div class="hand minute" id="minute"></div>
+    <div class="hand second" id="second"></div>
+    <div class="center"></div>
+  </div>
+
+  <footer>Pakistan Standard Time · UTC+5</footer>
 
   <script>
     function updateClock() {
       const now = new Date();
 
-      document.getElementById("time").textContent =
-        new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Europe/Oslo",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false
-        }).format(now);
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Karachi",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hourCycle: "h23"
+      }).formatToParts(now);
 
-      document.getElementById("date").textContent =
-        new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Europe/Oslo",
-          weekday: "long",
-          day: "2-digit",
-          month: "long",
-          year: "numeric"
-        }).format(now);
+      const get = type =>
+        Number(parts.find(p => p.type === type).value);
+
+      const h = get("hour");
+      const m = get("minute");
+      const s = get("second");
+
+      document.getElementById("hour").style.transform =
+        `translateX(-50%) rotate(${(h % 12) * 30 + m * 0.5}deg)`;
+
+      document.getElementById("minute").style.transform =
+        `translateX(-50%) rotate(${m * 6 + s * 0.1}deg)`;
+
+      document.getElementById("second").style.transform =
+        `translateX(-50%) rotate(${s * 6}deg)`;
+
+      document.getElementById("digital").textContent =
+        `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")} PKT`;
     }
 
     updateClock();
