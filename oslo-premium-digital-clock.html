@@ -1,22 +1,56 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  background: #101e2e;
-}
 
-.clock {
-  width: 100%;
-  max-width: 360px;
-  height: 235px;
-  margin: 0 auto;
-  padding: 18px 22px;
-  background: #101e2e;
-  color: #ffffff;
-  border: 1px solid #293b4e;
-  border-radius: 22px;
-  overflow: hidden;
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;
+background:#07182a;font-family:Arial;color:white}
+.clock{width:100%;max-width:300px;aspect-ratio:1;margin:auto;
+padding:20px;background:#101e2e;border:1px solid #244257;
+border-radius:22px;text-align:center;display:flex;
+flex-direction:column;justify-content:space-around}
+.header{display:flex;align-items:center;text-align:left;gap:10px}
+.icon{background:#104f4b;color:#56ead5;padding:12px;
+border-radius:12px;font-size:22px}
+.city{font-size:20px;font-weight:bold;letter-spacing:3px}
+.sub{font-size:11px;color:#a9bfd2;margin-top:4px}
+.live{margin-left:auto;color:#56ead5;font-size:10px}
+.label{font-size:10px;letter-spacing:3px;color:#56ead5}
+.time{font-size:clamp(30px,10vw,40px);font-weight:bold;
+color:#56ead5;white-space:nowrap}
+.date{font-size:12px}
+.zone{background:#203449;border-radius:20px;padding:9px;
+font-size:10px;letter-spacing:1px;align-self:center}
+</style>
+</head>
+<body>
+<div class="clock">
+  <div class="header">
+    <div class="icon">◷</div>
+    <div><div class="city">OSLO</div>
+    <div class="sub">Norway · Digital Clock</div></div>
+    <div class="live">● LIVE</div>
+  </div>
+  <div class="label">OSLO LOCAL TIME</div>
+  <div class="time" id="time"></div>
+  <div class="date" id="date"></div>
+  <div class="zone">EUROPE / OSLO</div>
+</div>
+<script>
+function tick(){
+ const n=new Date();
+ const f=(o)=>new Intl.DateTimeFormat('en-GB',
+ {timeZone:'Europe/Oslo',...o}).format(n);
+ document.getElementById('time').textContent=
+ f({hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+ document.getElementById('date').textContent=
+ new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Oslo',
+ weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(n);
 }
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
