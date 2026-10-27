@@ -3,176 +3,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oslo | Digital Clock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oslo Digital Clock</title>
+
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-body {
+html, body {
   margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  font-family: Inter, Arial, sans-serif;
-  color: #f1f5f9;
-  background:
-    radial-gradient(ellipse at top, #164e63 0%, transparent 50%),
-    linear-gradient(135deg, #07111f, #101827 60%, #0b2430);
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: transparent;
 }
 
-.card {
-  width: min(100%, 680px);
-  padding: clamp(24px, 6vw, 48px);
-  border: 1px solid #ffffff20;
-  border-radius: 28px;
-  background: #101d2ddd;
-  box-shadow: 0 25px 80px #0006;
-  text-align: center;
+.clock {
+  width: 100%;
+  max-width: 360px;
+  height: 235px;
+  margin: 0 auto;
+  padding: 18px 22px;
+  background: #101e2e;
+  color: #ffffff;
+  border: 1px solid #293b4e;
+  border-radius: 22px;
+  overflow: hidden;
 }
 
-.top {
+.header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  text-align: left;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #293747;
 }
 
-.logo {
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 17px;
-  background: #134e4a;
-  color: #5eead4;
-  font-size: 28px;
+.icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  background: #104f4b;
+  color: #56ead5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
 }
 
-.brand { flex: 1; }
-
-.brand h1 {
-  margin: 0;
+.city {
   font-size: 22px;
-  letter-spacing: 4px;
-}
-
-.brand p {
-  margin: 6px 0 0;
-  color: #94a3b8;
-  font-size: 13px;
-}
-
-.live {
-  color: #5eead4;
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-.live::before {
-  content: "";
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-right: 7px;
-  border-radius: 50%;
-  background: #5eead4;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid #ffffff16;
-  margin: 28px 0;
-}
-
-.label {
-  color: #5eead4;
-  font-size: 12px;
+  font-weight: bold;
   letter-spacing: 3px;
 }
 
-#time {
-  margin: 22px 0;
-  font-size: clamp(48px, 12vw, 88px);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -3px;
-  color: #5eead4;
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 35px #2dd4bf35;
+.subtitle {
+  color: #a9bfd2;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
-#date {
-  color: #cbd5e1;
-  font-size: clamp(14px, 3vw, 18px);
+.live {
+  margin-left: auto;
+  color: #56ead5;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.label {
+  text-align: center;
+  margin-top: 17px;
+  color: #56ead5;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+.time {
+  text-align: center;
+  margin-top: 7px;
+  color: #56ead5;
+  font-size: clamp(34px, 9vw, 43px);
+  font-weight: bold;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.date {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 12px;
 }
 
 .zone {
-  display: inline-block;
-  margin-top: 22px;
-  padding: 10px 16px;
-  border-radius: 30px;
-  background: #1e3345;
-  color: #bae6fd;
-  font-size: 12px;
+  display: table;
+  margin: 12px auto 0;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #203449;
+  color: #d9e8f5;
+  font-size: 11px;
   letter-spacing: 1px;
-}
-
-.footer {
-  margin-top: 28px;
-  color: #64748b;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-
-@media (max-width: 420px) {
-  .brand h1 { font-size: 18px; }
-  .live { font-size: 10px; }
 }
 </style>
 </head>
-<body>
-<main class="card">
-  <header class="top">
-    <div class="logo">◷</div>
-    <div class="brand">
-      <h1>OSLO</h1>
-      <p>Norway · Digital Clock</p>
-    </div>
-    <div class="live">LIVE</div>
-  </header>
 
-  <hr>
+<body>
+<div class="clock">
+  <div class="header">
+    <div class="icon">◷</div>
+    <div>
+      <div class="city">OSLO</div>
+      <div class="subtitle">Norway · Digital Clock</div>
+    </div>
+    <div class="live">● LIVE</div>
+  </div>
 
   <div class="label">OSLO LOCAL TIME</div>
-  <div id="time">00:00:00</div>
-  <div id="date">Loading date...</div>
+  <div class="time" id="time">00:00:00</div>
+  <div class="date" id="date"></div>
   <div class="zone">EUROPE / OSLO</div>
-
-  <div class="footer">
-    AUTOMATIC TIME · DAYLIGHT SAVING ADJUSTMENT
-  </div>
-</main>
+</div>
 
 <script>
 function updateClock() {
   const now = new Date();
-  const zone = "Europe/Oslo";
 
   document.getElementById("time").textContent =
     new Intl.DateTimeFormat("en-GB", {
-      timeZone: zone,
+      timeZone: "Europe/Oslo",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      hourCycle: "h23"
+      hour12: false
     }).format(now);
 
   document.getElementById("date").textContent =
     new Intl.DateTimeFormat("en-GB", {
-      timeZone: zone,
+      timeZone: "Europe/Oslo",
       weekday: "long",
-      day: "numeric",
+      day: "2-digit",
       month: "long",
       year: "numeric"
     }).format(now);
